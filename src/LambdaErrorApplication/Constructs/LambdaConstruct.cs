@@ -14,7 +14,7 @@ namespace LambdaErrorApplication.Constructs
     {
         public Function HandlerFunction { get; }
         public string FunctionArn { get; }
-        public LambdaConstruct(Construct scope, string nameId) : base(scope, nameId)
+        public LambdaConstruct(Construct scope, string nameId, string tableName) : base(scope, nameId)
         {
             //IAM Role
             var iAmRole = new Role(this, "LambdaErrorApplicationIAMRole", new RoleProps{
@@ -31,6 +31,8 @@ namespace LambdaErrorApplication.Constructs
             //     RemovalPolicy = RemovalPolicy.RETAIN,
 
             // });
+
+            
             //LAMBDA Definition
             HandlerFunction = new Function(this, nameId, new FunctionProps{
                 Runtime = Runtime.NODEJS_20_X,
@@ -40,8 +42,8 @@ namespace LambdaErrorApplication.Constructs
                 Role = iAmRole,
                 Environment = new Dictionary<string, string>
                 {
-                    ["TableName"] = "Null",
-                    ["TableName2"] = "Null"
+                    ["DynamoDBTableName"] = tableName,
+                    ["DBTable2"] = "Null"
                 }
             });
             FunctionArn = HandlerFunction.FunctionArn;
