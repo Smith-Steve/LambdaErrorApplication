@@ -1,6 +1,6 @@
 const AWS = require("aws-sdk");
 AWS.config.update({ region: "us-east-1" });
-const DynamoDbObject = new AWS.DynamoDb({ apiVersion: "2012-08-10" });
+const DynamoDbObject = new AWS.DynamoDB();
 
 exports.handler = async (event) => {
   //Message ID
@@ -29,9 +29,28 @@ exports.handler = async (event) => {
 
   //Console Log Of Entire Message Statement.
   console.log(message);
-  return {
-    statusCode: 200,
-    headers: { "Content-Type": "text/plain" },
-    body: JSON.stringify({ message: "Hello, World!" }),
+  const entryParameters = {
+    TableName: process.env.TableName,
+    Item: {
+      MessageId: { S: awsMessageId },
+      AlarmName: { S: awsAlarmName },
+      InstanceId: { S: awsInstanceId },
+      LambdaName: { S: awsLambdaName },
+      TimeStamp: { S: awsTimeStamp },
+    },
+    ReturnValues: "NONE",
   };
+  try {
+    await DynamoDbObject.putItem(entryParameters, function (error, data) {
+      if (error) {
+        console.log("Call Back Function: ", error);
+        console.log("Error Type: ", error.__type);
+      } else {
+        console.log("Call Back Function Success: ", data);
+      }
+    }).promise();
+  } catch (error) {
+    console.log("Catch Block Of Try Catch");
+    console.log();
+  }
 };
