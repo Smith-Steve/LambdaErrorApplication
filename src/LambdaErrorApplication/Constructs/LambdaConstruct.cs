@@ -42,21 +42,21 @@ namespace LambdaErrorApplication.Constructs
             var iAmRoleForDynamoDBLambda = new Role(this, "DynamoDBLambdaRole", new RoleProps{
                 AssumedBy = new ServicePrincipal("lambda.amazonaws.com")
             });
-            // iAmRoleForDynamoDBLambda.AddManagedPolicy(ManagedPolicy.FromAwsManagedPolicyName("service-role/AWSLambdaBasicExecutionRole"));
-            // iAmRoleForDynamoDBLambda.AddManagedPolicy(ManagedPolicy.FromManagedPolicyArn(this, "DynamoDBRole", "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess"));
+            iAmRoleForDynamoDBLambda.AddManagedPolicy(ManagedPolicy.FromAwsManagedPolicyName("service-role/AWSLambdaBasicExecutionRole"));
+            iAmRoleForDynamoDBLambda.AddManagedPolicy(ManagedPolicy.FromManagedPolicyArn(this, "DynamoDBRole", "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess"));
 
-            // new Function(this, "GetErrorItemsLambda", new FunctionProps{
-            //     Runtime = Runtime.NODEJS_20_X,
-            //     Code = Code.FromAsset("lambdas"),
-            //     Handler = "getErrors.handler",
-            //     Description = "Lambda That Pulls Errors From DynamoDB For Front End",
-            //     Role = iAmRoleForDynamoDBLambda,
-            //     Environment = new Dictionary<string, string>
-            //     {
-            //         ["DynamoDBTableName"] = tableName,
-            //         ["DBTable2"] = "Null"
-            //     }
-            // });
+            new Function(this, "GetErrorItemsLambda", new FunctionProps{
+                Runtime = Runtime.NODEJS_20_X,
+                Code = Code.FromAsset("lambdas"),
+                Handler = "getErrors.handler",
+                Description = "Lambda That Pulls Errors From DynamoDB For Front End",
+                Role = iAmRoleForDynamoDBLambda,
+                Environment = new Dictionary<string, string>
+                {
+                    ["DynamoDBTableName"] = tableName,
+                    ["DBTable2"] = "Null"
+                }
+            });
         }
     }
 }
