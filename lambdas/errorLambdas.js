@@ -23,11 +23,11 @@ exports.handler = async (event) => {
   const entryParameters = {
     TableName: process.env.DynamoDBTableName,
     Item: {
-      MessageId: { S: awsMessageId },
-      AlarmName: { S: awsAlarmName },
-      InstanceId: { S: awsInstanceId },
-      LambdaName: { S: awsLambdaName },
-      TimeStamp: { S: awsTimeStamp },
+      MessageId: { S: awsMessageId.replaceAll('"', "") },
+      AlarmName: { S: awsAlarmName.replaceAll('"', "") },
+      InstanceId: { S: awsInstanceId.replaceAll('"', "") },
+      LambdaName: { S: awsLambdaName.replaceAll('"', "") },
+      TimeStamp: { S: awsTimeStamp.replaceAll('"', "") },
     },
     ReturnValues: "NONE",
   };

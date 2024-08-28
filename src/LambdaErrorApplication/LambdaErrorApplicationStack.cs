@@ -15,6 +15,7 @@ namespace LambdaErrorApplication
             LambdaConstruct errorLoggingLambda = new LambdaConstruct(this, "ErrorLoggingLambda", dbTable.returnTableARN);
             SnsTopicConstruct topicSNS = new SnsTopicConstruct(this, "LambdaErrorSubscription", errorLoggingLambda.FunctionArn);
             errorLoggingLambda.HandlerFunction.AddEventSource(new SnsEventSource(topicSNS.lambdaErrorTopic));
+            //adding a comment.
         }
     }
 }

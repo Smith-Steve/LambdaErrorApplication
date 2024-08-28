@@ -4,7 +4,7 @@ const DynamoDbObject = new AWS.DynamoDB();
 
 exports.handler = async (event) => {
   const parameters = {
-    key: {
+    Key: {
       MessageId: {
         S: "8da94790-4ecf-578c-bf70-18d714a49e80",
       },

@@ -39,11 +39,11 @@ namespace LambdaErrorApplication.Constructs
             });
             FunctionArn = HandlerFunction.FunctionArn;
 
-            var iAmRoleForDynamoDBLambda = new Role(this, "DynamoDBLambdaRole", new RoleProps{
+            var iAmRoleForDynamoDBLambda = new Role(this, "DynamoDBLambdaRole222", new RoleProps{
                 AssumedBy = new ServicePrincipal("lambda.amazonaws.com")
             });
             iAmRoleForDynamoDBLambda.AddManagedPolicy(ManagedPolicy.FromAwsManagedPolicyName("service-role/AWSLambdaBasicExecutionRole"));
-            iAmRoleForDynamoDBLambda.AddManagedPolicy(ManagedPolicy.FromManagedPolicyArn(this, "DynamoDBRole", "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess"));
+            iAmRoleForDynamoDBLambda.AddManagedPolicy(ManagedPolicy.FromManagedPolicyArn(this, "DynamoDBRole222", "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess"));
 
             new Function(this, "GetErrorItemsLambda", new FunctionProps{
                 Runtime = Runtime.NODEJS_20_X,
