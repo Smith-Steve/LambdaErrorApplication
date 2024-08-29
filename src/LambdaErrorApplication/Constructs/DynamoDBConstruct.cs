@@ -33,9 +33,9 @@ namespace LambdaErrorApplication.Constructs
                     },
                     new GlobalSecondaryIndexPropsV2 {
                         IndexName = "Timestamp",
-                        PartitionKey = new Attribute {Name = "MessageId", Type = AttributeType.STRING}
+                        SortKey = new Attribute {Name = "MessageId", Type = AttributeType.STRING}
                     }
-                }
+                },
             });
             returnTableARN = table.TableArn;
         }

@@ -8,8 +8,20 @@ exports.handler = async (event) => {
     TableName:
       "arn:aws:lambda:us-east-1:531698586584:function:LambdaErrorApplicationSta-ErrorLoggingLambdaGetErr-D5Zwj2eADHqo",
   };
-  DynamoDbObject.scan(entryParameters, (error, data) => {
-    console.log("Entering Scan Function");
+
+  await functionScan(entryParameters)
+    .then((item) => {
+      console.log("Success");
+      console.log(JSON.stringify(item));
+    })
+    .catch((error) => {
+      console.log("Catch Block");
+      console.error(error);
+    });
+};
+
+const functionScan = (paramters) => {
+  DynamoDbObject.scan(paramters, (error, data) => {
     if (error) {
       console.error(
         "UNable to scan the table:",
