@@ -3,6 +3,7 @@ AWS.config.update({ region: "us-east-1" });
 const DynamoDbObject = new AWS.DynamoDB();
 
 exports.handler = async (event) => {
+  console.log(JSON.stringify(event));
   const parameters = {
     Key: {
       MessageId: {
