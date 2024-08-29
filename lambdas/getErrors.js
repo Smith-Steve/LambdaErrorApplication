@@ -3,18 +3,23 @@ AWS.config.update({ region: "us-east-1" });
 const DynamoDbObject = new AWS.DynamoDB();
 
 exports.handler = async (event) => {
-  console.log(JSON.stringify(event));
-  const parameters = {
-    Key: {
-      MessageId: {
-        S: "8da94790-4ecf-578c-bf70-18d714a49e80",
-      },
-    },
+  console.log("Weve entered the function.");
+  var entryParameters = {
     TableName:
-      "LambdaErrorApplicationStack-LambdaErrorLoggingTableEB453C29-18EJ2AU1F8HB9",
+      "arn:aws:lambda:us-east-1:531698586584:function:LambdaErrorApplicationSta-ErrorLoggingLambdaGetErr-D5Zwj2eADHqo",
   };
-  DynamoDbObject.getItem(parameters, function (error, data) {
-    if (error) console.log(error);
-    else console.log("Success: ", data);
+  DynamoDbObject.scan(entryParameters, (error, data) => {
+    console.log("Entering Scan Function");
+    if (error) {
+      console.error(
+        "UNable to scan the table:",
+        JSON.stringify(error, null, 2)
+      );
+    } else {
+      console.log("Scan Succeeded");
+      data.Items.forEach((item) => {
+        console.log("Item: ", JSON.stringify(item));
+      });
+    }
   });
 };
