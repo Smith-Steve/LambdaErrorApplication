@@ -1,0 +1,36 @@
+html,
+body {
+  background: #f9fffe;
+}
+
+.Application-Container {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+table {
+  width: 70%;
+  border: 0.05rem solid;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.table-header-row {
+  flex: 1;
+}
+
+tr {
+  text-align: center;
+}
+
+th,
+td {
+  text-align: center;
+  border: 2px solid #ddd;
+}
