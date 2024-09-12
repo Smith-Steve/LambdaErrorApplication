@@ -12,18 +12,31 @@ class App extends Component {
 
   render() {
     return (
-      <div className="Application-Container">
+      <div className="Application-Container">    
         <table>
-          <tr className="table-header-row">
-            <p>Lambda Error Chart </p>
-          </tr>
-          <tr>
-            <td className="text-style">MessageId</td>
-            <td className="text-style">Alarm Name</td>
-            <td className="text-style">InstanceId</td>
-            <td className="text-style">Lambda Name</td>
-            <td className="text-style">Time Of Occurence</td>
-          </tr>
+          <thead>
+              <tr>
+                  <th>MessageId</th>
+                  <th>Lambda Name</th>
+                  <th>Alarm Name</th>
+                  <th>Instance Id</th>
+                  <th>Time Stamp</th>
+              </tr>
+            </thead>
+            <tr className="row-highlight">
+                <td>James</td>
+                <td>Chicago</td>
+                <td>Check</td>
+                <td>Check</td>
+                <td>Check</td>
+            </tr>
+            <tr className="row-highlight">
+                <td>Robert</td>
+                <td>New York</td>
+                <td>Check</td>
+                <td>Check</td>
+                <td>Check</td>
+            </tr>
         </table>
       </div>
     );
