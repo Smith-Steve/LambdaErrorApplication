@@ -37,6 +37,9 @@ class App extends Component {
                 <td>Check</td>
                 <td>Check</td>
             </tr>
+            {
+              //We're adding a note.
+            }
         </table>
       </div>
     );
