@@ -1,6 +1,6 @@
 using Amazon.CDK;
 using Amazon.CDK.AWS.Lambda.EventSources;
-using Amazon.CDK.AWS.SES.Actions;
+using Amazon.CDK.AWS.APIGateway;
 using Constructs;
 using LambdaErrorApplication.Constructs;
 
@@ -17,6 +17,7 @@ namespace LambdaErrorApplication
             errorLoggingLambda.HandlerFunction.AddEventSource(new SnsEventSource(topicSNS.lambdaErrorTopic));
             //adding a comment.
             new S3Constructs(this, "errorlogging2");
+            new ApiGateWayConstruct(this, "New");
         }
     }
 }
