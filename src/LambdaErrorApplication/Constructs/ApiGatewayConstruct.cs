@@ -10,7 +10,12 @@ namespace LambdaErrorApplication.Constructs
     {
         public ApiGateWayConstruct(Construct scope, string nameId) : base(scope, nameId)
         {
-            new RestApi(this, "TestAPI");
+            var api = new RestApi(this, "TestAPI");
+            api.Root.AddMethod("ANY");
+
+            var books = api.Root.AddResource("books");
+            books.AddMethod("GET");
+            books.AddMethod("POST");
         }
     }
 }
