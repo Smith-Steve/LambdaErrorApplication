@@ -29,6 +29,17 @@ namespace LambdaErrorApplication.Constructs
                 // - Appears a bucket policy is set up, and then the bucket is named in the policy configurations.
                 // No Bucket Metrics Config
             });
+
+            string bucketArnString = bucket.BucketArn + "/*";
+
+            //Adding Resource Policy
+            bucket.AddToResourcePolicy(
+                new PolicyStatement(new PolicyStatementProps{
+                    Actions = new [] {"s3:GetObject"},
+                    Resources = new [] {bucketArnString},
+                    Principals = new [] {new AccountRootPrincipal()}
+                })
+            );
         }
     }
 }
