@@ -16,7 +16,7 @@ namespace LambdaErrorApplication
             SnsTopicConstruct topicSNS = new SnsTopicConstruct(this, "LambdaErrorSubscription", errorLoggingLambda.FunctionArn);
             errorLoggingLambda.HandlerFunction.AddEventSource(new SnsEventSource(topicSNS.lambdaErrorTopic));
             //adding a comment.
-            new S3Constructs(this, "errorlogging2");
+            new S3Constructs(this, "errorlogging2342");
             new ApiGateWayConstruct(this, "New");
         }
     }
