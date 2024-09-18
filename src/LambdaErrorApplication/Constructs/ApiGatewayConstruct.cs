@@ -14,6 +14,7 @@ namespace LambdaErrorApplication.Constructs
 
             var books = api.Root.AddResource("books");
             books.AddMethod("GET");
+            books.AddMethod("OPTIONS");
             books.AddMethod("POST");
         }
     }
