@@ -8,11 +8,11 @@ namespace LambdaErrorApplication.Constructs
     {
         public S3Constructs(Construct scope, string nameId) : base(scope, nameId)
         {
-            var bucketRole = new Role(this, "LambdaErrorAppBucketRole2hgh22", new RoleProps{
+            var bucketRole = new Role(this, "LambdaErrorAppBuckeggggtRole2fdfdfhgh22", new RoleProps{
                 AssumedBy = new ServicePrincipal("s3.amazonaws.com")
             });
             
-            var bucket = new Bucket(this, "LambdaErrorAppBucke2hghg22t", new BucketProps {
+            var bucket = new Bucket(this, "LambdaErrodfdfdfdrApgggpBucke2hghg2f2t", new BucketProps {
                 BucketName = nameId,
                 Versioned = false,
                 Encryption = BucketEncryption.S3_MANAGED,
@@ -26,18 +26,18 @@ namespace LambdaErrorApplication.Constructs
                 })
             });
 
-            // string bucketArnString = bucket.BucketArn + "/*";
+            string bucketArnString = bucket.BucketArn + "/*";
 
-            // //Adding Resource Policy
-            // bucket.AddToResourcePolicy(
-            //     new PolicyStatement(new PolicyStatementProps{
-            //         Sid = "PublicReadForGetBucketObjects",
-            //         Effect = Effect.ALLOW,
-            //         Principals = new [] {new ServicePrincipal("*")},
-            //         Actions = new [] {"s3:GetObject"},
-            //         Resources = new [] {bucketArnString},
-            //     })
-            // );
+            //Adding Resource Policy
+            bucket.AddToResourcePolicy(
+                new PolicyStatement(new PolicyStatementProps{
+                    Sid = "PublicReadForGetBucketObjects",
+                    Effect = Effect.ALLOW,
+                    Principals = new [] {new StarPrincipal()},
+                    Actions = new [] {"s3:GetObject"},
+                    Resources = new [] {bucketArnString},
+                })
+            );
         }
     }
 }
