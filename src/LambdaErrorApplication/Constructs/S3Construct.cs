@@ -1,6 +1,7 @@
 using Constructs;
 using Amazon.CDK.AWS.S3;
 using Amazon.CDK.AWS.IAM;
+using Amazon.CDK;
 
 namespace LambdaErrorApplication.Constructs
 {
@@ -8,16 +9,21 @@ namespace LambdaErrorApplication.Constructs
     {
         public S3Constructs(Construct scope, string nameId) : base(scope, nameId)
         {
-            var bucketRole = new Role(this, "LambdaErrorAppBuckeggggtRole2fdfdfhgh22", new RoleProps{
+            var bucketRole = new Role(this, "LambdaErrorAfadsfadsfaBuckeggggtRole2fdfdfhgh22", new RoleProps{
                 AssumedBy = new ServicePrincipal("s3.amazonaws.com")
             });
             
-            var bucket = new Bucket(this, "LambdaErrodfdfdfdrApgggpBucke2hghg2f2t", new BucketProps {
+            var bucket = new Bucket(this, "LambdaErrodsddSADsadhghg2f2t", new BucketProps {
                 BucketName = nameId,
                 Versioned = false,
                 Encryption = BucketEncryption.S3_MANAGED,
                 WebsiteIndexDocument = "index.html",
                 ObjectLockEnabled = false,
+                //Remove bucket. If bucket is orphaned from stack, delete.
+                RemovalPolicy = RemovalPolicy.DESTROY,
+                //Delete objects in bucket. This ensures that even if the bucekt in the stack as
+                // objects in it, they will be removed.
+                AutoDeleteObjects = true,
                 BlockPublicAccess = new BlockPublicAccess(new BlockPublicAccessOptions {
                     BlockPublicAcls = false,
                     BlockPublicPolicy = false,
@@ -33,6 +39,7 @@ namespace LambdaErrorApplication.Constructs
                 new PolicyStatement(new PolicyStatementProps{
                     Sid = "PublicReadForGetBucketObjects",
                     Effect = Effect.ALLOW,
+                    //AWS discourages the use of 'StarPrinicipal'
                     Principals = new [] {new StarPrincipal()},
                     Actions = new [] {"s3:GetObject"},
                     Resources = new [] {bucketArnString},
