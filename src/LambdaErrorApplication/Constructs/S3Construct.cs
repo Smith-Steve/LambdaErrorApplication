@@ -2,6 +2,8 @@ using Constructs;
 using Amazon.CDK.AWS.S3;
 using Amazon.CDK.AWS.IAM;
 using Amazon.CDK;
+using Amazon.CDK.AWS.S3.Deployment;
+using System.Threading.Tasks.Dataflow;
 
 namespace LambdaErrorApplication.Constructs
 {
@@ -9,11 +11,11 @@ namespace LambdaErrorApplication.Constructs
     {
         public S3Constructs(Construct scope, string nameId) : base(scope, nameId)
         {
-            var bucketRole = new Role(this, "LambdaErrorAfadsfadsfaBuckeggggtRole2fdfdfhgh22", new RoleProps{
+            var bucketRole = new Role(this, "LambdaErrodfdrAfadsfadsfaBuckeggggtRole2fdfdfhgh22", new RoleProps{
                 AssumedBy = new ServicePrincipal("s3.amazonaws.com")
             });
             
-            var bucket = new Bucket(this, "LambdaErrodsddSADsadhghg2f2t", new BucketProps {
+            var bucket = new Bucket(this, "LambdaErdaffdasrodsddSAffDsadhghg2f2t", new BucketProps {
                 BucketName = nameId,
                 Versioned = false,
                 Encryption = BucketEncryption.S3_MANAGED,
@@ -24,6 +26,8 @@ namespace LambdaErrorApplication.Constructs
                 //Delete objects in bucket. This ensures that even if the bucekt in the stack as
                 // objects in it, they will be removed.
                 AutoDeleteObjects = true,
+                //web
+                PublicReadAccess = true,
                 BlockPublicAccess = new BlockPublicAccess(new BlockPublicAccessOptions {
                     BlockPublicAcls = false,
                     BlockPublicPolicy = false,
@@ -45,6 +49,11 @@ namespace LambdaErrorApplication.Constructs
                     Resources = new [] {bucketArnString},
                 })
             );
+
+            // new BucketDeployment(this, "DeployWebsite", new BucketDeploymentProps{
+            //     Sources = new [] {Source.Asset("./frontend.zip")},
+            //     DestinationBucket = bucket
+            // });
         }
     }
 }
