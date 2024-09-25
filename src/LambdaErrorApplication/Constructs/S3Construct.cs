@@ -15,7 +15,7 @@ namespace LambdaErrorApplication.Constructs
                 AssumedBy = new ServicePrincipal("s3.amazonaws.com")
             });
             
-            var bucket = new Bucket(this, "LambdaErdaffdasrodsddSAffDsadhghg2f2t", new BucketProps {
+            var bucket = new Bucket(this, "Lambfdfg2f2t", new BucketProps {
                 BucketName = nameId,
                 Versioned = false,
                 Encryption = BucketEncryption.S3_MANAGED,
@@ -33,7 +33,8 @@ namespace LambdaErrorApplication.Constructs
                     BlockPublicPolicy = false,
                     IgnorePublicAcls = false,
                     RestrictPublicBuckets = false
-                })
+                }),
+                BucketKeyEnabled = false
             });
 
             string bucketArnString = bucket.BucketArn + "/*";
@@ -50,10 +51,12 @@ namespace LambdaErrorApplication.Constructs
                 })
             );
 
-            // new BucketDeployment(this, "DeployWebsite", new BucketDeploymentProps{
-            //     Sources = new [] {Source.Asset("./frontend.zip")},
-            //     DestinationBucket = bucket
-            // });
+            new BucketDeployment(this, "DeployWebsite", new BucketDeploymentProps{
+                Sources = new [] {Source.Asset("./frontend")},
+                DestinationBucket = bucket,
+                MemoryLimit = 2048,
+                EphemeralStorageSize = Size.Gibibytes(2)
+            });
         }
     }
 }
