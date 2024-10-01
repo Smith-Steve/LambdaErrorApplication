@@ -11,7 +11,7 @@ namespace LambdaErrorApplication.Constructs
     {
         public S3Constructs(Construct scope, string nameId) : base(scope, nameId)
         {
-            var bucketRole = new Role(this, "LambdaErrodfdrAfadsfadsfaBuckeggggtRole2fdfdfhgh22", new RoleProps{
+            var bucketRole = new Role(this, "LambdaErrodfdrAfadsdfSDFASDFASDFASDFQARole2fdfdfhgh22", new RoleProps{
                 AssumedBy = new ServicePrincipal("s3.amazonaws.com")
             });
             
@@ -47,12 +47,12 @@ namespace LambdaErrorApplication.Constructs
                     //AWS discourages the use of 'StarPrinicipal'
                     Principals = new [] {new StarPrincipal()},
                     Actions = new [] {"s3:GetObject"},
-                    Resources = new [] {bucketArnString},
+                    Resources = new [] {bucketArnString}
                 })
             );
 
             new BucketDeployment(this, "DeployWebsite", new BucketDeploymentProps{
-                Sources = new [] {Source.Asset("./frontend")},
+                Sources = new [] {Source.Asset("./frontend/build")},
                 DestinationBucket = bucket,
                 MemoryLimit = 2048,
                 EphemeralStorageSize = Size.Gibibytes(2)
