@@ -17,11 +17,11 @@ namespace LambdaErrorApplication.Constructs
         public LambdaConstruct(Construct scope, string nameId, string tableName) : base(scope, nameId)
         {
             //IAM Role
-            var iAmRole = new Role(this, "LambdaErrorApplicationIAMRole", new RoleProps{
+            var iAmRole = new Role(this, "ErrorLambdasIAMRoleDynamoDB3", new RoleProps{
                 AssumedBy = new ServicePrincipal("lambda.amazonaws.com")
             });
             iAmRole.AddManagedPolicy(ManagedPolicy.FromAwsManagedPolicyName("service-role/AWSLambdaBasicExecutionRole"));
-            iAmRole.AddManagedPolicy(ManagedPolicy.FromManagedPolicyArn(this, "DynamoDBRole", "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess"));
+            iAmRole.AddManagedPolicy(ManagedPolicy.FromManagedPolicyArn(this, "ErrorLambdasIAMRoleDynamoDB", "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess"));
 
             
             //LAMBDA Definition - Recieve Error Lambda
@@ -29,7 +29,7 @@ namespace LambdaErrorApplication.Constructs
                 Runtime = Runtime.NODEJS_20_X,
                 Code = Code.FromAsset("lambdas"),
                 Handler = "errorLambdas.handler",
-                Description = "Lambda That Recieves The Error Event, and deposits the error event into DynamoDB",
+                Description = "Error Lambda Application: Lambda That Recieves The Error Event, and deposits the error event into DynamoDB",
                 Role = iAmRole,
                 Environment = new Dictionary<string, string>
                 {
@@ -39,11 +39,11 @@ namespace LambdaErrorApplication.Constructs
             });
             FunctionArn = HandlerFunction.FunctionArn;
 
-            var iAmRoleForDynamoDBLambda = new Role(this, "DynamoDBLambdaRole222", new RoleProps{
+            var iAmRoleForDynamoDBLambda = new Role(this, "ErrorLambdasIAMRoleDynamoDB4", new RoleProps{
                 AssumedBy = new ServicePrincipal("lambda.amazonaws.com")
             });
             iAmRoleForDynamoDBLambda.AddManagedPolicy(ManagedPolicy.FromAwsManagedPolicyName("service-role/AWSLambdaBasicExecutionRole"));
-            iAmRoleForDynamoDBLambda.AddManagedPolicy(ManagedPolicy.FromManagedPolicyArn(this, "DynamoDBRole222", "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess"));
+            iAmRoleForDynamoDBLambda.AddManagedPolicy(ManagedPolicy.FromManagedPolicyArn(this, "ErrorLambdasIAMRoleDynamoDB2", "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess"));
 
             new Function(this, "GetErrorItemsLambda", new FunctionProps{
                 Runtime = Runtime.NODEJS_20_X,
