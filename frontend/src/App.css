@@ -12,7 +12,9 @@ body {
   min-height: 100vh;
 }
 
-table,th,td {
+table,
+th,
+td {
   border: 1px solid black;
 }
 
@@ -31,10 +33,18 @@ table {
   font-family: sans-serif;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
   border: 1px solid black;
-  width: 80%;
-  height: 170px;
+  width: 90%;
+  height: 10rem;
   text-align: center;
-  border-radius: 25px ;
+  border-radius: 25px;
+}
+
+.row-highlight::after {
+  visibility: hidden;
+  overflow: hidden;
+  user-select: none;
+  height: 0;
+  font-weight: var(--bold);
 }
 
 .row-highlight:hover {

@@ -30,11 +30,7 @@ namespace LambdaErrorApplication.Constructs
                     AllowTestInvoke = false,
                     Timeout = Duration.Seconds(10)
                 },
-                Proxy = false,
-                DefaultCorsPreflightOptions = new CorsOptions {
-                    AllowOrigins = Cors.ALL_ORIGINS,
-                    AllowMethods = Cors.ALL_METHODS,
-                }
+                Proxy = false
             });
 
             var errors = lambdaErrorAPI.Root.AddResource("errors");
