@@ -29,10 +29,15 @@ namespace LambdaErrorApplication.Constructs
                 IntegrationOptions = new LambdaIntegrationOptions {
                     AllowTestInvoke = false,
                     Timeout = Duration.Seconds(10)
+                },
+                Proxy = false,
+                DefaultCorsPreflightOptions = new CorsOptions {
+                    AllowOrigins = Cors.ALL_ORIGINS,
+                    AllowMethods = Cors.ALL_METHODS,
                 }
             });
 
-            var errors = lambdaErrorAPI.Root.AddResource("ErrorLambdaAPIGateway");
+            var errors = lambdaErrorAPI.Root.AddResource("errors");
             errors.AddMethod("GET");
             errors.AddMethod("OPTIONS");
             errors.AddMethod("POST");

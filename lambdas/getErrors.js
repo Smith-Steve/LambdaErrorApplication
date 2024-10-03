@@ -3,12 +3,9 @@ AWS.config.update({ region: "us-east-1" });
 const DynamoDbObject = new AWS.DynamoDB();
 
 exports.handler = async (event) => {
-  console.log("Weve entered the function.");
-
   var entryParameters = {
     TableName: process.env.DynamoDBTableName,
   };
-
   const result = await DynamoDbObject.scan(entryParameters, (error, data) => {
     if (error) {
       console.error("Error: ", JSON.stringify(error, null, 2));
@@ -17,5 +14,9 @@ exports.handler = async (event) => {
       return data.Items;
     }
   }).promise();
-  return result;
+  return {
+    statusCode: 200,
+    headers: { "Content-Type": "application/json" },
+    body: result,
+  };
 };
