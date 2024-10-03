@@ -4,20 +4,18 @@ const DynamoDbObject = new AWS.DynamoDB();
 
 exports.handler = async (event) => {
   console.log("Weve entered the function.");
+
   var entryParameters = {
-    TableName:
-      "LambdaErrorApplicationStack-LambdaErrorLoggingTableEB453C29-18EJ2AU1F8HB9",
+    TableName: process.env.DynamoDBTableName,
   };
 
-  DynamoDbObject.scan(entryParameters, (error, data) => {
+  const result = await DynamoDbObject.scan(entryParameters, (error, data) => {
     if (error) {
       console.error("Error: ", JSON.stringify(error, null, 2));
       console.error("More Error Information: ", JSON.stringify(error.__type));
     } else {
-      console.log("Success!");
-      data.Items.forEach((item) => {
-        console.log("Item: ", JSON.stringify(item));
-      });
+      return data.Items;
     }
-  });
+  }).promise();
+  return result;
 };

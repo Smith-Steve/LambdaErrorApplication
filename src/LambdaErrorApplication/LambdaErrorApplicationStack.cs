@@ -12,7 +12,7 @@ namespace LambdaErrorApplication
         {
             DynamoDBConstruct dbTable = new DynamoDBConstruct(this, "ErrorLambdaDynamoDBTable");
             // The code that defines your stack goes here
-            LambdaConstruct errorLoggingLambda = new LambdaConstruct(this, "ErrorLambdas", dbTable.returnTableARN);
+            LambdaConstruct errorLoggingLambda = new LambdaConstruct(this, "ErrorLambdas", dbTable.returnTableName);
             SnsTopicConstruct topicSNS = new SnsTopicConstruct(this, "ErrorLambdaSNSSubcription", errorLoggingLambda.FunctionArn);
             errorLoggingLambda.HandlerFunction.AddEventSource(new SnsEventSource(topicSNS.lambdaErrorTopic));
             //adding a comment.

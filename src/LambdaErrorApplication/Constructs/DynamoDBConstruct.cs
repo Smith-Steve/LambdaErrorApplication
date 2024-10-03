@@ -8,7 +8,7 @@ namespace LambdaErrorApplication.Constructs
 {
     public class DynamoDBConstruct : Construct
     {
-        public string returnTableARN { get;}
+        public string returnTableName { get;}
         public DynamoDBConstruct(Construct scope, string id) : base(scope, id)
         {
             var table = new TableV2(this, id, new TablePropsV2
@@ -37,7 +37,7 @@ namespace LambdaErrorApplication.Constructs
                     }
                 },
             });
-            returnTableARN = table.TableArn;
+            returnTableName = table.TableName;
         }
     }
 }
