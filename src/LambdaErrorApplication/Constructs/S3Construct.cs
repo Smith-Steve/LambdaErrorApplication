@@ -40,9 +40,8 @@ namespace LambdaErrorApplication.Constructs
 
             bucket.AddCorsRule(new CorsRule{
                 AllowedHeaders = new [] {"*"},
-                AllowedMethods = new [] {HttpMethods.GET, HttpMethods.POST, HttpMethods.PUT, HttpMethods.HEAD, HttpMethods.DELETE},
+                AllowedMethods = new [] {HttpMethods.GET, HttpMethods.POST, HttpMethods.PUT, HttpMethods.DELETE},
                 AllowedOrigins = new [] {"*"},
-                ExposedHeaders = new [] {"Content-Range", "Content-Length", "ETag"},
                 MaxAge = 100
             });
 

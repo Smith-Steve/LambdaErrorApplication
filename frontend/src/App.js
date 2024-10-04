@@ -19,18 +19,17 @@ class App extends Component {
       method: "GET",
       mode: "cors",
       headers: {
-        "Conent-Type": "application/json",
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Headers": "*",
-        "Access-Control-Allow-Methods": "*",
       },
     };
     fetch(
-      "https://qpo7kgwrahvf3jrkox63nd5zui0acrkz.lambda-url.us-east-1.on.aws/",
+      "https://cors-anywhere.herokuapp.com/https://qpo7kgwrahvf3jrkox63nd5zui0acrkz.lambda-url.us-east-1.on.aws/",
       initGetErrors
     )
       .then((response) => response.json())
       .then((returnedResponse) => {
+        console.log(returnedResponse);
         this.setState({ errors: returnedResponse.Items });
       });
   }
