@@ -12,15 +12,15 @@ namespace LambdaErrorApplication.Constructs
         public Topic lambdaErrorTopic { get;}
         public SnsTopicConstruct(Construct scope, string nameId, string lambdaArn) : base(scope, nameId)
         {
-            lambdaErrorTopic = new Topic(this, "ErrorLambdaTopic",new TopicProps {
-                DisplayName = "ErrorLambdaTopic",
+            lambdaErrorTopic = new Topic(this, "LeaLambdaTopic",new TopicProps {
+                DisplayName = "LeaLambdaTopic",
                 Fifo = false
             });
 
-            var iAmRole = new Role(this,"ErrorLambdaSNSTopic", new RoleProps {
+            var iAmRole = new Role(this,"LeaIAMsnsLambda", new RoleProps {
                 AssumedBy = new ServicePrincipal("sns.amazonaws.com")
             });
-            iAmRole.AddManagedPolicy(ManagedPolicy.FromManagedPolicyArn(this, "ErrorLambdaSNSIAMPolicy", "arn:aws:iam::aws:policy/AmazonSNSFullAccess"));
+            iAmRole.AddManagedPolicy(ManagedPolicy.FromManagedPolicyArn(this, "LEASNSIAMPolicy", "arn:aws:iam::aws:policy/AmazonSNSFullAccess"));
             new Subscription(this, "nameId", new SubscriptionProps{
                 Topic = lambdaErrorTopic,
                 Protocol = SubscriptionProtocol.LAMBDA,

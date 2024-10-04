@@ -11,11 +11,11 @@ namespace LambdaErrorApplication.Constructs
     {
         public S3Constructs(Construct scope, string nameId) : base(scope, nameId)
         {
-            var bucketRole = new Role(this, "ErrorLambdaRoleS3Bucket", new RoleProps{
+            var bucketRole = new Role(this, "LeaIAMRoleS3", new RoleProps{
                 AssumedBy = new ServicePrincipal("s3.amazonaws.com")
             });
             
-            var bucket = new Bucket(this, "errorlambdawebsitebucket", new BucketProps {
+            var bucket = new Bucket(this, "LEAs3BucketWebsite", new BucketProps {
                 BucketName = nameId,
                 Versioned = false,
                 Encryption = BucketEncryption.S3_MANAGED,
@@ -34,7 +34,16 @@ namespace LambdaErrorApplication.Constructs
                     IgnorePublicAcls = false,
                     RestrictPublicBuckets = false
                 }),
-                BucketKeyEnabled = false
+                BucketKeyEnabled = false,
+
+            });
+
+            bucket.AddCorsRule(new CorsRule{
+                AllowedHeaders = new [] {"*"},
+                AllowedMethods = new [] {HttpMethods.GET, HttpMethods.POST, HttpMethods.PUT, HttpMethods.HEAD, HttpMethods.DELETE},
+                AllowedOrigins = new [] {"*"},
+                ExposedHeaders = new [] {"Content-Range", "Content-Length", "ETag"},
+                MaxAge = 100
             });
 
             string bucketArnString = bucket.BucketArn + "/*";
@@ -51,7 +60,7 @@ namespace LambdaErrorApplication.Constructs
                 })
             );
 
-            new BucketDeployment(this, "ErrorLambdaS3BucketDeployment", new BucketDeploymentProps{
+            new BucketDeployment(this, "LEAS3BucketDeployment", new BucketDeploymentProps{
                 Sources = new [] {Source.Asset("./frontend/build")},
                 DestinationBucket = bucket,
                 MemoryLimit = 2048,

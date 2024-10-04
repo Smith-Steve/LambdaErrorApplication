@@ -17,46 +17,59 @@ namespace LambdaErrorApplication.Constructs
         public LambdaConstruct(Construct scope, string nameId, string tableName) : base(scope, nameId)
         {
             //IAM Role
-            var iAmRole = new Role(this, "ErrorLambdasIAMRoleDynamoDB3", new RoleProps{
+            var iAmRole = new Role(this, "LeaIamLambdaRole", new RoleProps{
                 AssumedBy = new ServicePrincipal("lambda.amazonaws.com")
             });
             iAmRole.AddManagedPolicy(ManagedPolicy.FromAwsManagedPolicyName("service-role/AWSLambdaBasicExecutionRole"));
-            iAmRole.AddManagedPolicy(ManagedPolicy.FromManagedPolicyArn(this, "ErrorLambdasIAMRoleDynamoDB", "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess"));
+            iAmRole.AddManagedPolicy(ManagedPolicy.FromManagedPolicyArn(this, "LeaIamLambdaRole3", "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess"));
 
             
             //LAMBDA Definition - Recieve Error Lambda
-            HandlerFunction = new Function(this, nameId, new FunctionProps{
+            HandlerFunction = new Function(this, "LEALambdaDepositError", new FunctionProps{
                 Runtime = Runtime.NODEJS_20_X,
                 Code = Code.FromAsset("lambdas"),
                 Handler = "errorLambdas.handler",
-                Description = "Error Lambda Application: Lambda That Recieves The Error Event, and deposits the error event into DynamoDB",
+                Description = "LEA: Lambda That Recieves The Error Event, and deposits the error event into DynamoDB",
                 Role = iAmRole,
                 Environment = new Dictionary<string, string>
                 {
-                    ["DynamoDBTableName"] = tableName,
-                    ["DBTable2"] = "Null"
+                    ["DynamoDBTableName"] = tableName
                 }
             });
             FunctionArn = HandlerFunction.FunctionArn;
 
-            var iAmRoleForDynamoDBLambda = new Role(this, "ErrorLambdasIAMRoleDynamoDB4", new RoleProps{
+            var iAmRoleForDynamoDBLambda = new Role(this, "LeaIamLambdaRole2", new RoleProps{
                 AssumedBy = new ServicePrincipal("lambda.amazonaws.com")
             });
             iAmRoleForDynamoDBLambda.AddManagedPolicy(ManagedPolicy.FromAwsManagedPolicyName("service-role/AWSLambdaBasicExecutionRole"));
-            iAmRoleForDynamoDBLambda.AddManagedPolicy(ManagedPolicy.FromManagedPolicyArn(this, "ErrorLambdasIAMRoleDynamoDB2", "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess"));
+            iAmRoleForDynamoDBLambda.AddManagedPolicy(ManagedPolicy.FromManagedPolicyArn(this, "LeaIamLambdaRole4", "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess"));
 
             new Function(this, "GetErrorItemsLambda", new FunctionProps{
                 Runtime = Runtime.NODEJS_20_X,
                 Code = Code.FromAsset("lambdas"),
                 Handler = "getErrors.handler",
-                Description = "Lambda That Pulls Errors From DynamoDB For Front End",
+                Description = "LEA: Lambda That Pulls Errors From DynamoDB For Front End",
                 Role = iAmRoleForDynamoDBLambda,
                 Environment = new Dictionary<string, string>
                 {
-                    ["DynamoDBTableName"] = tableName,
-                    ["DBTable2"] = "Null"
+                    ["DynamoDBTableName"] = tableName
                 }
             });
+
+            //Lambda written for the purpose of generating AWS errors.
+            //By design, this lambda has syntactically incorrect code. It's purpose is to generate errors that can be utilized to
+            //test application
+            // var iAMRoleForErrorLambda = new Role(this, "LeaLambdaError", new RoleProps{
+            //     AssumedBy = new ServicePrincipal("lambda.amazonaws.com")
+            // });
+            // iAMRoleForErrorLambda.AddManagedPolicy(ManagedPolicy.FromAwsManagedPolicyName("service-role/AdministratorAccess"));
+
+            // //Code generating lambda
+            // new Function(this, "LeaTestingLambda", new FunctionProps{
+            //     Runtime = Runtime.NODEJS_20_X,
+            //     Code = Code.FromAsset("lambdas"),
+
+            // });
         }
     }
 }

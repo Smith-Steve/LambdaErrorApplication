@@ -17,10 +17,16 @@ class App extends Component {
   getListOfErrors() {
     const initGetErrors = {
       method: "GET",
-      headers: { "Conent-Type": "application/json" },
+      mode: "cors",
+      headers: {
+        "Conent-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "*",
+        "Access-Control-Allow-Methods": "*",
+      },
     };
     fetch(
-      "https://2zrz7ja3z2g267h5lkiy37ommu0jaqlv.lambda-url.us-east-1.on.aws/",
+      "https://qpo7kgwrahvf3jrkox63nd5zui0acrkz.lambda-url.us-east-1.on.aws/",
       initGetErrors
     )
       .then((response) => response.json())
