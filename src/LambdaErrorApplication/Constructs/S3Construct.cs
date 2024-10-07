@@ -15,7 +15,7 @@ namespace LambdaErrorApplication.Constructs
                 AssumedBy = new ServicePrincipal("s3.amazonaws.com")
             });
             
-            var bucket = new Bucket(this, "LEAs3BucketWebsite", new BucketProps {
+            var bucket = new Bucket(this, "LEAs3BucketWebsite2", new BucketProps {
                 BucketName = nameId,
                 Versioned = false,
                 Encryption = BucketEncryption.S3_MANAGED,
@@ -59,7 +59,7 @@ namespace LambdaErrorApplication.Constructs
                 })
             );
 
-            new BucketDeployment(this, "LEAS3BucketDeployment", new BucketDeploymentProps{
+            new BucketDeployment(this, "LEAS3BucketDeployment2", new BucketDeploymentProps{
                 Sources = new [] {Source.Asset("./frontend/build")},
                 DestinationBucket = bucket,
                 MemoryLimit = 2048,

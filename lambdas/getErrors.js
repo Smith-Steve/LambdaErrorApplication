@@ -3,6 +3,9 @@ AWS.config.update({ region: "us-east-1" });
 const DynamoDbObject = new AWS.DynamoDB();
 
 exports.handler = async (event) => {
+  // var entryParameters = {
+  //   TableName: process.env.DynamoDBTableName,
+  // };
   var entryParameters = {
     TableName: process.env.DynamoDBTableName,
   };

@@ -17,11 +17,11 @@ namespace LambdaErrorApplication.Constructs
         public LambdaConstruct(Construct scope, string nameId, string tableName) : base(scope, nameId)
         {
             //IAM Role
-            var iAmRole = new Role(this, "LeaIamLambdaRole", new RoleProps{
+            var iAmRole = new Role(this, "leaIAMlabda", new RoleProps{
                 AssumedBy = new ServicePrincipal("lambda.amazonaws.com")
             });
             iAmRole.AddManagedPolicy(ManagedPolicy.FromAwsManagedPolicyName("service-role/AWSLambdaBasicExecutionRole"));
-            iAmRole.AddManagedPolicy(ManagedPolicy.FromManagedPolicyArn(this, "LeaIamLambdaRole3", "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess"));
+            iAmRole.AddManagedPolicy(ManagedPolicy.FromManagedPolicyArn(this, "leaIAMlabda3", "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess"));
 
             
             //LAMBDA Definition - Recieve Error Lambda
@@ -38,11 +38,11 @@ namespace LambdaErrorApplication.Constructs
             });
             FunctionArn = HandlerFunction.FunctionArn;
 
-            var iAmRoleForDynamoDBLambda = new Role(this, "LeaIamLambdaRole2", new RoleProps{
+            var iAmRoleForDynamoDBLambda = new Role(this, "leaIAMlabda2", new RoleProps{
                 AssumedBy = new ServicePrincipal("lambda.amazonaws.com")
             });
             iAmRoleForDynamoDBLambda.AddManagedPolicy(ManagedPolicy.FromAwsManagedPolicyName("service-role/AWSLambdaBasicExecutionRole"));
-            iAmRoleForDynamoDBLambda.AddManagedPolicy(ManagedPolicy.FromManagedPolicyArn(this, "LeaIamLambdaRole4", "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess"));
+            iAmRoleForDynamoDBLambda.AddManagedPolicy(ManagedPolicy.FromManagedPolicyArn(this, "leaIAMlabda4", "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess"));
 
             var functionTwo = new Function(this, "GetErrorItemsLambda", new FunctionProps{
                 Runtime = Runtime.NODEJS_20_X,
@@ -54,6 +54,10 @@ namespace LambdaErrorApplication.Constructs
                 {
                     ["DynamoDBTableName"] = tableName
                 }
+            });
+
+            functionTwo.AddFunctionUrl(new FunctionUrlOptions{
+                AuthType = FunctionUrlAuthType.NONE
             });
 
             //Lambda written for the purpose of generating AWS errors.

@@ -9,8 +9,15 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      component: parseRoute(window.location.hash).path,
+      component: "LambdaErrorsComponent",
     };
+  }
+
+  componentDidMount() {
+    window.addEventListener("hashchange", () => {
+      const activeRoute = parseRoute(window.location.hash).path;
+      this.setState({ component: activeRoute });
+    });
   }
 
   renderComponent = () => {
