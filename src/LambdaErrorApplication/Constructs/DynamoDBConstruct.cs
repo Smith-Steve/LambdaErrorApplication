@@ -35,7 +35,8 @@ namespace LambdaErrorApplication.Constructs
                         IndexName = "Timestamp",
                         PartitionKey = new Attribute {Name = "MessageId", Type = AttributeType.STRING}
                     }
-                }
+                },
+                SortKey = new Attribute {Name = "Timestamp"}
             });
             returnTableName = table.TableName;
         }

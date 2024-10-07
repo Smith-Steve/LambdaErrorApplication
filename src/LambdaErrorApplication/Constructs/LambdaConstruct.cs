@@ -44,7 +44,7 @@ namespace LambdaErrorApplication.Constructs
             iAmRoleForDynamoDBLambda.AddManagedPolicy(ManagedPolicy.FromAwsManagedPolicyName("service-role/AWSLambdaBasicExecutionRole"));
             iAmRoleForDynamoDBLambda.AddManagedPolicy(ManagedPolicy.FromManagedPolicyArn(this, "LeaIamLambdaRole4", "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess"));
 
-            new Function(this, "GetErrorItemsLambda", new FunctionProps{
+            var functionTwo = new Function(this, "GetErrorItemsLambda", new FunctionProps{
                 Runtime = Runtime.NODEJS_20_X,
                 Code = Code.FromAsset("lambdas"),
                 Handler = "getErrors.handler",
