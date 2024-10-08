@@ -35,6 +35,7 @@ class LambdaErrorsComponent extends Component {
 
   buildTableBody(errorList) {
     const errorRow = errorList.map((error) => {
+      console.log(new Date(error.Timestamp.S));
       return (
         <tr className="row-highlight">
           <td>{error.MessageId.S}</td>

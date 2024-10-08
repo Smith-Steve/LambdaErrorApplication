@@ -6,10 +6,11 @@ exports.handler = async (event) => {
   // var entryParameters = {
   //   TableName: process.env.DynamoDBTableName,
   // };
+  console.log(event);
   var entryParameters = {
     TableName: process.env.DynamoDBTableName,
   };
-  const result = await DynamoDbObject.scan(entryParameters, (error, data) => {
+  const result = await DynamoDbObject.query(entryParameters, (error, data) => {
     if (error) {
       console.error("Error: ", JSON.stringify(error, null, 2));
       console.error("More Error Information: ", JSON.stringify(error.__type));

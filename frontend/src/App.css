@@ -9,7 +9,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  /* min-height: 100vh; */
 }
 
 table,
@@ -82,5 +82,4 @@ table {
 .components {
   margin-left: 200px;
   padding: 0.2rem;
-  height: 1000px;
 }

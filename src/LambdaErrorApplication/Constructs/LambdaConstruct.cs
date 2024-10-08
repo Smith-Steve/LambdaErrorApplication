@@ -70,7 +70,7 @@ namespace LambdaErrorApplication.Constructs
             //     Runtime = Runtime.NODEJS_20_X,
             //     Code = Code.FromAsset("lambdas"),
 
-            // });
+            // })
         }
     }
 }
