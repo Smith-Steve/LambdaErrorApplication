@@ -8,7 +8,7 @@ export default function Sidebar() {
           Home
         </a>
         <a href="#LambdaErrorsComponent">Lambda Errors</a>
-        <a href="#contact">Health Dashboard</a>
+        <a href="#HealthDashboardComponent">Health Dashboard</a>
       </div>
     </React.Fragment>
   );

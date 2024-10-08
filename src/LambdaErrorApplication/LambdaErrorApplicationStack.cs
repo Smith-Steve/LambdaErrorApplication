@@ -16,7 +16,7 @@ namespace LambdaErrorApplication
             SnsTopicConstruct topicSNS = new SnsTopicConstruct(this, "LeaSNS2", errorLoggingLambda.FunctionArn);
             errorLoggingLambda.HandlerFunction.AddEventSource(new SnsEventSource(topicSNS.lambdaErrorTopic));
             //adding a comment.
-            new S3Constructs(this, "leas32");
+            new S3Constructs(this, "leas322");
         }
     }
 }

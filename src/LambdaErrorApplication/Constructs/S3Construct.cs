@@ -11,11 +11,11 @@ namespace LambdaErrorApplication.Constructs
     {
         public S3Constructs(Construct scope, string nameId) : base(scope, nameId)
         {
-            var bucketRole = new Role(this, "LeaIAMRoleS3", new RoleProps{
+            var bucketRole = new Role(this, "LeaIAMRoleS31", new RoleProps{
                 AssumedBy = new ServicePrincipal("s3.amazonaws.com")
             });
             
-            var bucket = new Bucket(this, "LEAs3BucketWebsite2", new BucketProps {
+            var bucket = new Bucket(this, "LEAs3BucketWebsite22", new BucketProps {
                 BucketName = nameId,
                 Versioned = false,
                 Encryption = BucketEncryption.S3_MANAGED,
@@ -59,7 +59,7 @@ namespace LambdaErrorApplication.Constructs
                 })
             );
 
-            new BucketDeployment(this, "LEAS3BucketDeployment2", new BucketDeploymentProps{
+            new BucketDeployment(this, "LEAS3BucketDeployment22", new BucketDeploymentProps{
                 Sources = new [] {Source.Asset("./frontend/build")},
                 DestinationBucket = bucket,
                 MemoryLimit = 2048,

@@ -4,6 +4,7 @@ import LambdaErrorsComponent from "./components/LambdaErrorsComponent";
 import Sidebar from "./components/sidebar";
 import Home from "./components/home";
 import "./App.css";
+import HealthDashboardComponent from "./components/healthDashboardComponent";
 
 class App extends Component {
   constructor(props) {
@@ -24,6 +25,8 @@ class App extends Component {
     switch (this.state.component) {
       case "LambdaErrorsComponent":
         return <LambdaErrorsComponent />;
+      case "HealthDashboardComponent":
+        return <HealthDashboardComponent />;
       default:
         return <Home />;
     }

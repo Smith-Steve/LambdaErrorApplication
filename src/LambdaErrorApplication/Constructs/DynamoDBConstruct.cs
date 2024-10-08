@@ -1,8 +1,6 @@
 using Constructs;
 //AWS
 using Amazon.CDK.AWS.DynamoDB;
-using Amazon.CDK.AWS.ControlTower;
-using Amazon.CDK.AWS.CloudWatch;
 
 namespace LambdaErrorApplication.Constructs
 {
@@ -36,7 +34,8 @@ namespace LambdaErrorApplication.Constructs
                         PartitionKey = new Attribute {Name = "MessageId", Type = AttributeType.STRING}
                     }
                 },
-                SortKey = new Attribute {Name = "Timestamp"}
+                SortKey = new Attribute {
+                    Name = "Timestamp", Type = AttributeType.STRING}
             });
             returnTableName = table.TableName;
         }

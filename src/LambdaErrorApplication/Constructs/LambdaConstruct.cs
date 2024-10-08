@@ -56,9 +56,6 @@ namespace LambdaErrorApplication.Constructs
                 }
             });
 
-            functionTwo.AddFunctionUrl(new FunctionUrlOptions{
-                AuthType = FunctionUrlAuthType.NONE
-            });
 
             //Lambda written for the purpose of generating AWS errors.
             //By design, this lambda has syntactically incorrect code. It's purpose is to generate errors that can be utilized to

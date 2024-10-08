@@ -23,7 +23,7 @@ class LambdaErrorsComponent extends Component {
       },
     };
     fetch(
-      "https://cors-anywhere.herokuapp.com/https://qpo7kgwrahvf3jrkox63nd5zui0acrkz.lambda-url.us-east-1.on.aws/",
+      "https://cors-anywhere.herokuapp.com/https://x5yzixv4uqtpmfxqlcbjow7bd40tnagk.lambda-url.us-east-1.on.aws/",
       initGetErrors
     )
       .then((response) => response.json())
@@ -41,7 +41,7 @@ class LambdaErrorsComponent extends Component {
           <td>{error.LambdaName.S}</td>
           <td>{error.AlarmName.S}</td>
           <td>{error.InstanceId.S}</td>
-          <td>{error.TimeStamp.S}</td>
+          <td>{error.Timestamp.S}</td>
         </tr>
       );
     });
